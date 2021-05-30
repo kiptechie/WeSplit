@@ -9,19 +9,17 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
+    @State private var showingAlert = false
     var body: some View {
-        Form {
-            Button("Tap me!") {
-                print("Button was tapped")
-            }
-            Button(action: {
-                print("Button 2 tapped")
-            }) {
-                HStack(spacing: 10) {
-                    Image(systemName: "pencil")
-                    Text("Edit")
-                }
-            }
+        Button("Show Alert") {
+            self.showingAlert = true
+        } // code below will set showing alert back to false
+        .alert(isPresented: $showingAlert) {
+            Alert(
+             title: Text("Hello it is Me"),
+             message: Text("This is some detail message"),
+             dismissButton: .default(Text("OK"))
+            )
         }
     }
 }
