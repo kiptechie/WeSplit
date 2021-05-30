@@ -10,37 +10,11 @@ import CoreData
 
 struct ContentView: View {
     var body: some View {
-        Form {
-            Section {
-                VStack(
-                    alignment: .leading,
-                    spacing: 20
-                ) {
-                    Text("Hello iOS")
-                    Text("This is another Vstack text view")
-                }
-            }
-            Section {
-                VStack {
-                    Text("Hello iOS")
-                    Text("This is another Vstack text view with Spacer()")
-                    Spacer()
-                }
-            }
-            Section {
-                HStack(
-                    spacing: 20
-                ) {
-                    Text("Hello iOS")
-                    Text("This is another Hstack text view")
-                }
-            }
-            Section {
-                ZStack {
-                    Text("Hello iOS")
-                    Text("This is another Zstack text view")
-                }
-            }
+        ZStack {
+            //Color.gray.frame(width: 200, height: 200)
+            //Color(red: 1, green: 0.8, blue: 0) // yellow
+            Color.green.edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/) // fill the whole screen
+            Text("Your content")
         }
     }
 }
