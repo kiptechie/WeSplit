@@ -9,45 +9,21 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @State private var count = 0
-    @State private var name = ""
+    @State private var checkAmount = ""
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 2
+    let tipPercentages = [10, 15, 20, 25, 0]
     var body: some View {
-        NavigationView {
-            
-            Form {
-                ForEach(0 ..< 20) {
-                    Text("Row \($0 + 1)")
-                }
+        Form {
+            Section {
+                TextField("Amount", text: $checkAmount)
+                    .keyboardType(.decimalPad)
             }
-            
-//        Form {
-//            Section {
-//                Text("Hello iOS")
-//                Text("Hello iOS")
-//                Text("Hello iOS")
-//            }
-//            Section {
-//                Text("Hello iOS")
-//                Text("Hello iOS")
-//                Text("Hello iOS")
-//                Text("Hello iOS")
-//            }
-//
-//            Section {
-//                Button("Tap count \(count)") {
-//                    count += 1
-//                }
-//            }
-//
-//            Section {
-//                TextField("Enter your name", text: $name)
-//                Text("Your name is: \(name)")
-//            }
-//        }
-        
-        .navigationBarTitle("WeSplit")
+            Section {
+                Text("\(checkAmount)")
+            }
         }
-}
+    }
 }
 
 
