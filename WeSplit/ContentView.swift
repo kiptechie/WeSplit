@@ -9,18 +9,69 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @State private var showingAlert = false
+    
+    @State private var countries = ["Estonia", "France", "Germany", "Ireland", "Italy", "Nigeria", "Poland", "Russia", "spain", "UK", "US"].shuffled()
+    @State private var correctAnswer = Int.random(in: 0...2)
+    
+    @State private var showingScore = false
+    @State private var score = 0
+    @State private var scoreTitle = ""
+    
     var body: some View {
-        Button("Show Alert") {
-            self.showingAlert = true
-        } // code below will set showing alert back to false
-        .alert(isPresented: $showingAlert) {
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.blue, Color.black]), startPoint: .top, endPoint: .bottom)
+                .edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            VStack(spacing: 30) {
+                VStack {
+                    Text("Current score = \(score)")
+                        .foregroundColor(.white)
+                    Text("Tap the flag of")
+                        .foregroundColor(.white)
+                    Text(countries[correctAnswer])
+                        .foregroundColor(.white)
+                        .font(.largeTitle)
+                        .fontWeight(.black)
+                }
+                
+                ForEach(0 ..< 3) { number in
+                    Button(action: {
+                        // flag was tapped
+                        self.flagTapped(num: number)
+                    }) {
+                        Image(self.countries[number])
+                            .renderingMode(.original)
+                            .clipShape(Capsule())
+                            .overlay(Capsule().stroke(Color.black, lineWidth: 1))
+                            .shadow(color: Color.black, radius: 2)
+                    }
+                }
+                Spacer()
+            }
+        }
+        .alert(isPresented: $showingScore) {
             Alert(
-             title: Text("Hello it is Me"),
-             message: Text("This is some detail message"),
-             dismissButton: .default(Text("OK"))
+                title: Text(scoreTitle),
+                message: Text("Your score = \(score)"),
+                dismissButton: .default(Text("Continue")) {
+                    self.askQuestion()
+                }
             )
         }
+    }
+    
+    func flagTapped(num number: Int) {
+        showingScore = true
+        if number == correctAnswer {
+            score += 10
+            scoreTitle = "Correct"
+        } else {
+            scoreTitle = "Wrong"
+        }
+    }
+    
+    func askQuestion() {
+        countries.shuffle()
+        correctAnswer = Int.random(in: 0...2)
     }
 }
 
